@@ -1,19 +1,63 @@
 #!/bin/bash
 
+sec_agile_tradi=("SCRUM" "X.P" "Kanban" "Crystal" "Cascada" "Espiral" "Modelo V")
+
+definicion=""
+pwd=`pwd`
+
 #AQUI VAN LAS FUNCIONES
-submenu() { 
-        echo -ne "
-        Usted esta en la sección {nombre de la sección}, seleccione la opción que desea utilizar.
-        1) Agregar informacion.
-        2) Buscar.
-        3) Eliminar informacion.
-        4) Leer base de informacion.
-        5) Salir.
-        "
-        read -r res
+creacion_ficheros(){
+	if ! [[ -f SCRUM.inf ]]; then
+		touch SCRUM.inf
+	fi
+	if ! [[ -f X.P.inf ]]; then
+		touch X.P.inf
+	fi
+	if ! [[ -f Kanban.inf ]]; then
+		touch Kanban.inf
+	fi
+	if ! [[ -f Crystal.inf ]]; then
+		touch Crystal.inf
+	fi
+	if ! [[ -f Cascada.inf ]]; then
+		touch Cascada.inf
+	fi
+	if ! [[ -f Espiral.inf ]]; then
+		touch Espiral.inf
+	fi
+	if ! [[ -f "Modelo V.inf" ]]; then
+		touch "Modelo V.inf"
+	fi
+}
+agregar_informacion(){
+	concepto_sin_formato=""
+	concepto_con_formato=""
+	clear
+	read -p "Concepto: " concepto_sin_formato
+	read -p "Definicion: " definicion
+	concepto_con_formato="[$concepto_sin_formato].-"
+	echo "$concepto_con_formato $definicion" >> "${sec_agile_tradi[$1]}.inf"
+}
+leer_base_informacion(){
+	clear
+	cat "${sec_agile_tradi[$1]}.inf"
+}
+submenu() {
+	res=0
+    while [[ $res != 5 ]]; do 
+        echo "================================================="
+        echo "Usted esta en la sección '${sec_agile_tradi[$(($1-1))]}'"
+        echo "================================================="
+        echo "1) Agregar informacion."
+        echo "2) Buscar."
+        echo "3) Eliminar informacion."
+        echo "4) Leer base de informacion."
+        echo "5) Salir."
+        
+        read -p "Seleccione la opción que desea utilizar: " res
         case $res in
         1)
-            echo "Aqui va la funcion agregar informacion"
+            agregar_informacion $(($1-1))
             ;;
         2) 
             echo "Aqui va la funcion  Buscar informacion."
@@ -22,104 +66,112 @@ submenu() {
             echo "Aqui va la funcion Eliminar informacion"
             ;;
         4) 
-            echo "Aqui va la funcion Leer base de informacion."
+            leer_base_informacion $(($1-1))
             ;;
         5) 
             echo "Saliendo del submenu"
-            exit 0
             ;;
         *)
             echo "Opcion equivocada."
             exit 1
             ;;
         esac
-    }
+	done
+}
 
+creacion_ficheros
 #Inicio del while loop del menu principal.
 #El while loop nos permite seleccionar las opciones -a y -t
-while [ -n "$1" ]; do 
+#while [ -n "$1" ]; do 
     case "$1" in
-    
-    #Opcion -a con su menu y sub-menus.
-    -a) echo "Metodologias agiles" 
-    
-    menu_principal_agil() {
-        echo -ne "
-        Bienvenido a la guía rápida de Agile, para continuar seleccione un tema:
-        1) SCRUM
-        2) X.P.
-        3) Kanban
-        4) Crystal
-        5) Salir
-        "
-        read -r res # res = respuesta
-        case $res in
-        1)
-            submenu
-            ;;
-        2)
-            submenu
-            ;;
-        3)
-            submenu
-            ;;    
-        4)
-            submenu
-            ;;
-        5)
-            echo "Buen dia <3"
-            exit 0
-            ;;
-        *)
-            echo "ERROR: Opcion invalida"
-            exit 1
-            ;;
-        esac
-    }
+        #Opcion -a con su menu y sub-menus.
+    	-a) 
+			res1=0
+			echo "Metodologias agiles" 
+	    	menu_principal_agil() {
+	            while [[ $res1 != 5 ]]; do 
+					clear
+					echo "================================================="
+					echo "     Bienvenido a la guía rápida de Agile"
+					echo "================================================="
+					echo "1) SCRUM"
+					echo "2) X.P."
+					echo "3) Kanban"
+					echo "4) Crystal"
+					echo "5) Salir"
+					
+					read -p "para continuar seleccione un tema: " res1 # res = respuesta
+					case $res1 in
+					1)
+						submenu 1
+						;;
+					2)
+						submenu 2
+						;;
+					3)
+						submenu 3
+						;;    
+					4)
+						submenu 4
+						;;
+					5)
+						echo "Buen dia <3"
+						;;
+					*)
+						echo "ERROR: Opcion invalida"
+						##exit 1
+						;;
+					esac
+				done
+	    	}
+			menu_principal_agil
+		;;
+		#Fin de la opcion -a Metodologias agiles.
 
-menu_principal_agil
-;; #Fin de la opcion -a Metodologias agiles.
+    	#Opcion -t con su menu y sub-menus.
+    	-t) echo "Metodologias tradicionales"
 
-    #Opcion -t con su menu y sub-menus.
-    -t) echo "Metodologias tradicionales"
-
-     menu_principal_tradicional() {
-        echo -ne "
-        Bienvenido a la guía rápida de Metodologias Tradicionales, para continuar seleccione un tema:
-        1) Cascada
-        2) Espiral
-        3) Modelo V
-        4) Salir
-        "
-        read -r res # res = respuesta
-        case $res in
-        1)
-            submenu
-            ;;
-        2)
-            submenu
-            ;;
-        3)
-            submenu
-            ;;    
-        4)
-            echo "Buen dia <3"
-            exit 0
-            ;;
-        *)
-            echo "ERROR: Opcion invalida"
-            exit 1
-            ;;
-        esac
-    }
-menu_principal_tradicional
-;; #Fin de la opcion -t Metodologias tradicionales.
+	     	menu_principal_tradicional() {
+				while [[ $res2 != 4 ]]; do 
+					clear
+					echo "================================================================="
+					echo "     Bienvenido a la guía rápida de Metodologias Tradicionales"
+					echo "================================================================="
+					echo "1) Cascada"
+					echo "2) Espiral"
+					echo "3) Modelo V"
+					echo "4) Salir"
+					
+					read -p "para continuar seleccione un tema: " res2 # res = respuesta
+					case $res2 in
+						1)
+							submenu 5
+							;;
+						2)
+							submenu 6
+							;;
+						3)
+							submenu 7
+							;;    
+						4)
+							echo "Buen dia <3"
+							;;
+						*)
+							echo "ERROR: Opcion invalida"
+							exit 1
+							;;
+					esac
+				done
+			}
+	        menu_principal_tradicional
+	        ;; #Fin de la opcion -t Metodologias tradicionales.
 
     #Opcion -* encaso de que seleccione un parametro diferente.
     *) echo "La opcion $1 no se reconoce";;
-
     esac
     shift
-done
+#done
+clear
+echo "Ha salido del programa"
 
 
