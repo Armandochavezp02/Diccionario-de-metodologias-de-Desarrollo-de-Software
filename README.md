@@ -26,10 +26,10 @@ El proyecto está desarrollado en bash script, con apoyo de herramientas de trab
 
 ## Versiones
 
-```
-Las versiones y avances pueden revisarse en los diferentes commits
-```
+
+**Las versiones y avances pueden revisarse en los diferentes commits**
+
 ## Autores
-1. [Armando Chavez Perez] *316099*
-2. [Juan Daniel Villegas Terrazas] *329545*
-3. [Javier Andres Tarango Fierro]  *329904*
+1. [Armando Chavez Perez](https://github.com/Armandochavezp02)*316099*
+2. [Juan Daniel Villegas Terrazas](https://github.com/JuanDanielVillegas) *329545*
+3. [Javier Andres Tarango Fierro](https://github.com/329904) *329904*
