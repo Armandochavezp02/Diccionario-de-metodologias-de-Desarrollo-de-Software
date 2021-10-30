@@ -25,6 +25,7 @@ docker pull 329545/diccionario_metodologias:1.0.0
 ## Probar el programa
 
 **En Docker:**
+
 Usar `docker run -ti -e METODOLOGIA=-a 329545/diccionario_metodologias:1.0.0`  para metodologías ágiles.
 
 ```
