@@ -14,23 +14,39 @@ Utilizar un sistema Unix de preferencia.
 
 
 ## Instalacion
-
+**git hub:**
 ```
 git clone git@github.com:Armandochavezp02/Diccionario-de-metodologias-de-Desarrollo-de-Software.git
 ```
-
+**Bajar Imagen desde Docker**
+```
+docker pull 329545/diccionario_metodologias:1.0.0  
+```
 ## Probar el programa
 
-Correr el script `diccionario_metodologias.sh -a` sobre la terminal para metodologías ágiles. 
+**En Docker:**
+Usar `docker run -ti -e METODOLOGIA=-a 329545/diccionario_metodologias:1.0.0`  para metodologías ágiles.
 
 ```
-diccionario_metodologias.sh -a
+docker run -ti -e METODOLOGIA=-a 329545/diccionario_metodologias:1.0.0
+```
+Usar `docker run -ti -e METODOLOGIA=-t 329545/diccionario_metodologias:1.0.0`  para metodologías tradicionales.
+
+```
+docker run -ti -e METODOLOGIA=-t 329545/diccionario_metodologias:1.0.0
+```
+**Desde la terminal:**
+
+Correr el script `./diccionario_metodologias.sh -a` sobre la terminal para metodologías ágiles. 
+
+```
+./diccionario_metodologias.sh -a
 ```
 
-Correr el script `diccionario_metodologias.sh -t` sobre la terminal para metodologías tradicionales. 
+Correr el script `./diccionario_metodologias.sh -t` sobre la terminal para metodologías tradicionales. 
 
 ```
-diccionario_metodologias.sh -t
+./diccionario_metodologias.sh -t
 ```
 
 ## Despliegue
