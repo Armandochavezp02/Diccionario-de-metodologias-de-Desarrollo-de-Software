@@ -37,14 +37,40 @@ agregar_informacion(){
 	read -p "Definicion: " definicion
 	concepto_con_formato="[$concepto_sin_formato].-"
 	echo "$concepto_con_formato $definicion" >> "${sec_agile_tradi[$1]}.inf"
+	read -p "Presione cualquier tecla para continuar ..."
 }
 leer_base_informacion(){
 	clear
 	cat "${sec_agile_tradi[$1]}.inf"
+	read -p "Presione cualquier tecla para continuar ..."
+}
+buscar(){
+	concepto_buscar=""
+	clear
+	read -p "Ingrese el Concepto para Buscar: " concepto_buscar
+	echo "_________________________________________________"
+	echo "           Resultado de la Busqueda"
+	echo "_________________________________________________"
+	grep -i "[][]$concepto_buscar[][]" "${sec_agile_tradi[$1]}.inf"
+	echo " "
+	read -p "Presione cualquier tecla para continuar ..."
+}
+eliminar(){
+	concepto_eliminar=""
+	clear
+	read -p "Ingrese el Concepto para Eliminar: " concepto_eliminar
+	grep -i -v "[][]$concepto_eliminar[][]" "${sec_agile_tradi[$1]}.inf" > temporal.inf
+	cat temporal.inf > "${sec_agile_tradi[$1]}.inf"
+	echo "_________________________________________________"
+	echo "           Accion Realizada"
+	echo "_________________________________________________"
+	echo " "
+	read -p "Presione cualquier tecla para continuar ..."
 }
 submenu() {
 	res=0
     while [[ $res != 5 ]]; do 
+		clear
         echo "================================================="
         echo "Usted esta en la sección '${sec_agile_tradi[$(($1-1))]}'"
         echo "================================================="
@@ -60,10 +86,10 @@ submenu() {
             agregar_informacion $(($1-1))
             ;;
         2) 
-            echo "Aqui va la funcion  Buscar informacion."
+            buscar $(($1-1))
             ;;
         3)
-            echo "Aqui va la funcion Eliminar informacion"
+            eliminar $(($1-1))
             ;;
         4) 
             leer_base_informacion $(($1-1))
